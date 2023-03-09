@@ -19,6 +19,7 @@ const PORT = process.env.PORT;
 
 app.get("/", (request, response) => {
   console.log("Hello World");
+  response.send({"message":"Password Reset Chap"})
 });
 
 app.listen(PORT, () =>
