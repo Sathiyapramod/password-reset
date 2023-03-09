@@ -13,7 +13,7 @@ import {
   getUserbyEmail,
   changePasswordinDB,
   checkOTPinDB,
-  updateOTPinDb
+  updateOTPinDb,
 } from "../service/password.service.js";
 const router = express.Router();
 
@@ -111,7 +111,10 @@ router.post("/forgotpassword", async (request, response) => {
       //For Demo Purpose only
       console.log(updateOTPinDB);
       const transporter = nodemailer.createTransport({
-        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        service: "Gmail",
         auth: {
           user: "",
           pass: "",
@@ -127,7 +130,7 @@ router.post("/forgotpassword", async (request, response) => {
         if (err) console.log(err);
         else console.log(info);
       });
-      response.send({"message":"OTP sent to the Registered Email"});
+      response.send({ message: "OTP sent to the Registered Email" });
     }
   }
 });
@@ -151,15 +154,14 @@ router.post("/changepassword", async (request, response) => {
     response.status(401).send({ message: "Enter valid password" });
   else {
     const newHashedPassword = await getHashedPassword(NewPassword);
-    const updatedUserdetail = await changePasswordinDB(username, newHashedPassword);
+    const updatedUserdetail = await changePasswordinDB(
+      username,
+      newHashedPassword
+    );
     updatedUserdetail
-      ? response.send({"message":"Password Reset Successfully !!!"})
+      ? response.send({ message: "Password Reset Successfully !!!" })
       : response.status(401).send({ message: "Failed to Update Password" });
   }
 });
 
 export default router;
-
-
-
-
