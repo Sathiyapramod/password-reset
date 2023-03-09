@@ -130,7 +130,7 @@ router.post("/forgotpassword", async (request, response) => {
         if (err) console.log(err);
         else console.log(info);
       });
-      response.send({ message: "OTP sent to the Registered Email" });
+      response.send({ message: "OTP sent to the Registered Email", random });
     }
   }
 });
