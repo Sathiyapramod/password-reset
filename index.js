@@ -13,7 +13,7 @@ await client.connect(); //This is a calling operation
 
 const app = express();
 app.use(express.json()); //installing common middleware
-app.use(cors());
+app.use(cors()); //installing cors
 app.use("/password",router);
 const PORT = process.env.PORT;
 

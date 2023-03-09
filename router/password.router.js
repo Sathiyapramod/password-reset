@@ -65,7 +65,7 @@ router.post("/signup", async (request, response) => {
 router.post("/signin", async (request, response) => {
   const { username, password } = request.body;
   const checkUsernamefromDB = await newSignin(username);
-  if (checkUsernamefromDB.length < 1)
+  if (checkUsernamefromDB == null )
     response.status(401).send({ message: "User Name Doesn't Exists. 😮" });
   else {
     const storedPasswordfromDB = checkUsernamefromDB.password;
