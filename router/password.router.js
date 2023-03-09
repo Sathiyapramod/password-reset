@@ -153,7 +153,7 @@ router.post("/changepassword", async (request, response) => {
     const newHashedPassword = await getHashedPassword(NewPassword);
     const updatedUserdetail = await changePasswordinDB(username, newHashedPassword);
     updatedUserdetail
-      ? response.send(updatedUserdetail)
+      ? response.send({"message":"Password Reset Successfully !!!"})
       : response.status(401).send({ message: "Failed to Update Password" });
   }
 });
