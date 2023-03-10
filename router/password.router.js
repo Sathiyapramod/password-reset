@@ -106,7 +106,7 @@ router.post("/forgotpassword", async (request, response) => {
       const random = Randomstring.generate(options);
       const updateOTPinDB = await updateOTPinDb(email, random);
       
-      //For Demo Purpose only
+      //For Demo Purpose onl
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
