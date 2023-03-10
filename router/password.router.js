@@ -65,7 +65,7 @@ router.post("/signup", async (request, response) => {
 router.post("/signin", async (request, response) => {
   const { username, password } = request.body;
   const checkUsernamefromDB = await newSignin(username);
-  if (checkUsernamefromDB == null )
+  if (checkUsernamefromDB == null)
     response.status(401).send({ message: "User Name Doesn't Exists. 😮" });
   else {
     const storedPasswordfromDB = checkUsernamefromDB.password;
@@ -102,35 +102,31 @@ router.post("/forgotpassword", async (request, response) => {
         .status(401)
         .send({ message: "Email Address doesnt exist. Try Again. 😮" });
     else {
-      // console.log(Randomstring.generate(options));
 
       const random = Randomstring.generate(options);
       const updateOTPinDB = await updateOTPinDb(email, random);
-
-      //This Nodemailer has some error issue with Gmail accounts
+      
       //For Demo Purpose only
-      console.log(updateOTPinDB);
       const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        service: "Gmail",
+        service: "gmail",
         auth: {
-          user: "",
-          pass: "",
+          user: "sathiyapramod22@gmail.com",
+          pass: process.env.PASSWORD,
         },
       });
       const mailOptions = {
-        from: "sathiyaharris@gmail.com",
+        from: "sathiyapramod22@gmail.com",
         to: `${email}`,
-        Subject: "Your One Time Password is",
-        Body: `<p>${random}</p>`,
+        subject: "Passwordflow - Forgot Password Link - Reg.,",
+        text: `Generated One Time Password is ${random}`,
+        html: `<p>Generated One Time Password is <b>${random}</b></p>
+        <span>Regards,😉</span>`,
       };
       transporter.sendMail(mailOptions, function (err, info) {
         if (err) console.log(err);
         else console.log(info);
       });
-      response.send({ message: "OTP sent to the Registered Email", random });
+      response.send({ message: "OTP sent to the Registered Email" });
     }
   }
 });
