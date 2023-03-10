@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json()); //installing common middleware
 app.use(cors()); //installing cors
 app.use("/password",router);
-const PORT = process.env.PORT;
+const PORT = 4000;
 
 app.get("/", (request, response) => {
   console.log("Hello World");
