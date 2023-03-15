@@ -137,10 +137,11 @@ router.post("/forgotpassword", async (request, response) => {
 router.post("/verification", async (request, response) => {
   const { codeword } = request.body;
   const checkCodewordfromDB = await checkOTPinDB(codeword);
+  console.log(checkCodewordfromDB[0].RandomNumber);
   if (checkCodewordfromDB.length != 1)
     response.status(401).send({ message: "Invalid Credentials " });
   else {
-    response.status(200).send({ message: "Pass Code matched Successfully" });
+    response.status(200).send({ message: "Pass Code matched Successfully", "OTP":checkCodewordfromDB[0].RandomNumber });
   }
 });
 
