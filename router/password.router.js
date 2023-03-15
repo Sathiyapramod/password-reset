@@ -102,10 +102,9 @@ router.post("/forgotpassword", async (request, response) => {
         .status(401)
         .send({ message: "Email Address doesnt exist. Try Again. 😮" });
     else {
-
       const random = Randomstring.generate(options);
       const updateOTPinDB = await updateOTPinDb(email, random);
-      
+
       //For Demo Purpose onl
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -126,7 +125,10 @@ router.post("/forgotpassword", async (request, response) => {
         if (err) console.log(err);
         else console.log(info);
       });
-      response.send({ message: "OTP sent to the Registered Email" });
+      response.send({
+        message: "OTP sent to the Registered Email",
+        OTP: random,
+      });
     }
   }
 });
